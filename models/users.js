@@ -106,7 +106,37 @@ function checkIfUserExists(userData) {
   });
 }
 
+/**
+ * @addUserDetails
+ */
+
+function addUserDetails(userData) {
+  console.log('Caleld addUserDetails')
+  return new Promise((resolve, reject) => {
+    console.log(userData);
+    try { 
+      mongoConnection
+        .collection("users")
+        .insertOne(userData, async (err, results) => {
+          if (err) {
+            console.log(err);
+            throw new Error(err);
+          }
+          //return data
+          resolve({
+            error: false,
+            data: results.ops[0],
+          });
+        });
+    } catch (e) {
+      reject(e);
+    }
+
+  });
+}
+
 module.exports = {
   addUser: addUser,
   verifyUser: verifyUser,
+  addUserDetails: addUserDetails,
 };

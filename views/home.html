@@ -9,6 +9,35 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
     <link href="/css/styles.css" rel="stylesheet" />
+
+    <script>
+      $(document).ready(function () {
+          $('#account-submit').click(function (e) {
+            console.log('ACCOUNT SUBMIT CLICKED');      
+            $.post("/users/details", {
+              name: $("#username").val(),
+              email: $("#useremail").val(),
+              password: $("#password").val(),
+              dob: $('#dob').val(),
+              cob: $('#cob').val(),
+              address: $('#address').val(),
+              gender: $('#gender').val(),
+              hobbies: $('#hobbies').val(),
+              civilstate: $('#civilstate').val(),
+              profession: $('#profession').val(),
+              salary: $('#salary').val(),
+            }, function (data) {
+                if (!data.error) {
+                  $('#account-submit').prop('value', 'Update');
+                  // window.location.href = "/home";
+                } else {
+                  alert(data.message);
+                }
+              });
+            });
+          });
+  </script>
+
   </head>
 
   <body>
@@ -28,12 +57,30 @@
       <h1>Hello, <%= name %></h1>
     </div>
     <div class="form-group" style="margin-top: 100px; width : 400px; margin-left : 50px;">
+      <p>Username</p>
       <input type="text" id="username" placeholder="Name" class="form-control"><br>
+      <p>Email</p>
       <input type="text" id="useremail" placeholder="Email" class="form-control"><br>
+      <p>Password</p>
       <input type="password" id="password" placeholder="Password" class="form-control"><br>
-      <input type="button" id="login-submit" value="Log In" class="btn btn-primary">&nbsp;<a href="" id="reg">Sign up
-          here </a>
-      <a href="" id="log">Back to Login </a>
+      <p>Date of Birth</p>
+      <input type="date" id="dob" placeholder="Dob" class="form-control"><br>
+      <p>City of Birth</p>
+      <input type="text" id="cob" placeholder="Cob" class="form-control"><br>
+      <p>Address</p>
+      <input type="text" id="address" placeholder="Address" class="form-control"><br>
+      <p>Gender</p>
+      <input type="text" id="gender" placeholder="Gender" class="form-control"><br>
+      <p>Hobbies</p>
+      <input type="text" id="hobbies" placeholder="Hobbies" class="form-control"><br>
+      <p>Civil State</p>
+      <input type="text" id="civilstate" placeholder="CivilState" class="form-control"><br>
+      <p>Profession</p>
+      <input type="text" id="profession" placeholder="Profession" class="form-control"><br>
+      <p>Salary</p>
+      <input type="text" id="salary" placeholder="Salary" class="form-control"><br>
+
+      <input type="button" id="account-submit" value="Update" class="btn btn-primary">&nbsp;
   </div>
   </body>
 </html>
