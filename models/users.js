@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const req = require("express/lib/request");
 const { mongoConnection } = require("./connection");
 
 /**
@@ -98,6 +99,7 @@ function checkIfUserExists(userData) {
             console.log(err);
             throw new Error(err);
           }
+          console.log(results);
           resolve({ error: false, data: results });
         });
     } catch (e) {
@@ -107,17 +109,35 @@ function checkIfUserExists(userData) {
 }
 
 /**
- * @addUserDetails
+ * @updateUserDetails
  */
 
-function addUserDetails(userData) {
-  console.log('Caleld addUserDetails')
-  return new Promise((resolve, reject) => {
+function updateUserDetails(userData) {
+  console.log('Caleld updateUserDetails')
+  return new Promise(async (resolve, reject) => {
     console.log(userData);
+    // generate password hash
+    let passwordHash = await bcrypt.hash(userData.password, 15);
+    userData.password = passwordHash;
     try { 
       mongoConnection
         .collection("users")
-        .insertOne(userData, async (err, results) => {
+        .updateOne(
+          {email: userData.email},
+          { $set: 
+            { name: userData.name,
+            password: userData.password,
+            dob: userData.dob, 
+            cob: userData.cob, 
+            address: userData.address, 
+            gender: userData.gender, 
+            hobbies: userData.hobbies, 
+            civilstate: userData.civilstate, 
+            profession: userData.profession, 
+            salary: userData.salary,
+            sport: userData.sport,
+            image: userData.image
+          }}, async (err, results) => {
           if (err) {
             console.log(err);
             throw new Error(err);
@@ -125,7 +145,7 @@ function addUserDetails(userData) {
           //return data
           resolve({
             error: false,
-            data: results.ops[0],
+            data: results,
           });
         });
     } catch (e) {
@@ -138,5 +158,5 @@ function addUserDetails(userData) {
 module.exports = {
   addUser: addUser,
   verifyUser: verifyUser,
-  addUserDetails: addUserDetails,
+  updateUserDetails: updateUserDetails,
 };

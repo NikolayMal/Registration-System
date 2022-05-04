@@ -13,14 +13,43 @@ router.get("/", (req, res) => {
 router.get("/home", function (req, res) {
   if (req.session.user) {
     console.log(req.session.user);
-    return res.render("home.html", { name: req.session.user.name });
+    return res.render("home.html", { 
+      name: req.session.user.name, 
+      email: req.session.user.email,
+      password: req.session.user.password,
+      dob: req.session.user.dob, 
+      cob: req.session.user.cob, 
+      address: req.session.user.address, 
+      gender: req.session.user.gender, 
+      hobbies: req.session.user.hobbies, 
+      civilstate: req.session.user.civilstate, 
+      profession: req.session.user.profession, 
+      salary: req.session.user.salary,
+      sport: req.session.user.sport,
+      image: req.session.user.image
+    });
   }
+
   res.redirect("/");
 });
 
 router.get("/index", function (req, res) {
   if (req.session.user){
-    return res.render("home.html", { name: req.session.user.name });
+    return res.render("home.html", { 
+      name: req.session.user.name, 
+      email: req.session.user.email,
+      password: req.session.user.password,
+      dob: req.session.user.dob, 
+      cob: req.session.user.cob, 
+      address: req.session.user.address, 
+      gender: req.session.user.gender, 
+      hobbies: req.session.user.hobbies, 
+      civilstate: req.session.user.civilstate, 
+      profession: req.session.user.profession, 
+      salary: req.session.user.salary,
+      sport: req.session.user.sport,
+      image: req.session.user.image
+    });
   }
   res.render("index.html");
 });

@@ -13,7 +13,7 @@
     <script>
       $(document).ready(function () {
           $('#account-submit').click(function (e) {
-            console.log('ACCOUNT SUBMIT CLICKED');      
+            
             $.post("/users/details", {
               name: $("#username").val(),
               email: $("#useremail").val(),
@@ -26,10 +26,11 @@
               civilstate: $('#civilstate').val(),
               profession: $('#profession').val(),
               salary: $('#salary').val(),
+              sport: $('#sport').val(),
+              image: $('#image').val(),
             }, function (data) {
                 if (!data.error) {
-                  $('#account-submit').prop('value', 'Update');
-                  // window.location.href = "/home";
+                  alert('details updated'); 
                 } else {
                   alert(data.message);
                 }
@@ -58,27 +59,32 @@
     </div>
     <div class="form-group" style="margin-top: 100px; width : 400px; margin-left : 50px;">
       <p>Username</p>
-      <input type="text" id="username" placeholder="Name" class="form-control"><br>
+      <input type="text" id="username" placeholder="Name" value="<%= name %>" class="form-control"><br>
       <p>Email</p>
-      <input type="text" id="useremail" placeholder="Email" class="form-control"><br>
+      <input type="text" id="useremail" placeholder="Email" value="<%= email %>" class="form-control" readonly><br>
       <p>Password</p>
-      <input type="password" id="password" placeholder="Password" class="form-control"><br>
+      <input type="password" id="password" placeholder="Password" value="<%= password %>" class="form-control"><br>
       <p>Date of Birth</p>
-      <input type="date" id="dob" placeholder="Dob" class="form-control"><br>
+      <input type="date" id="dob" placeholder="Dob" value="<%= dob %>" class="form-control"><br>
       <p>City of Birth</p>
-      <input type="text" id="cob" placeholder="Cob" class="form-control"><br>
+      <input type="text" id="cob" placeholder="Cob" value="<%= cob %>" class="form-control"><br>
       <p>Address</p>
-      <input type="text" id="address" placeholder="Address" class="form-control"><br>
+      <input type="text" id="address" placeholder="Address" value="<%= address %>" class="form-control"><br>
       <p>Gender</p>
-      <input type="text" id="gender" placeholder="Gender" class="form-control"><br>
+      <input type="text" id="gender" placeholder="Gender" value="<%= gender %>" class="form-control"><br>
       <p>Hobbies</p>
-      <input type="text" id="hobbies" placeholder="Hobbies" class="form-control"><br>
+      <input type="text" id="hobbies" placeholder="Hobbies" value="<%= hobbies %>" class="form-control"><br>
       <p>Civil State</p>
-      <input type="text" id="civilstate" placeholder="CivilState" class="form-control"><br>
+      <input type="text" id="civilstate" placeholder="CivilState" value="<%= civilstate %>" class="form-control"><br>
       <p>Profession</p>
-      <input type="text" id="profession" placeholder="Profession" class="form-control"><br>
+      <input type="text" id="profession" placeholder="Profession" value="<%= profession %>" class="form-control"><br>
       <p>Salary</p>
-      <input type="text" id="salary" placeholder="Salary" class="form-control"><br>
+      <input type="text" id="salary" placeholder="Salary" value="<%= salary %>" class="form-control"><br>
+      <p>Sport</p>
+      <input type="text" id="sport" placeholder="Sport" value="<%= sport %>" class="form-control"><br>
+      <p>Image</p>
+      <input type="text" id="image" placeholder="Image" value="<%= salary %>" class="form-control"><br>
+      
 
       <input type="button" id="account-submit" value="Update" class="btn btn-primary">&nbsp;
   </div>
